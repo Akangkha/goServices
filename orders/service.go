@@ -37,7 +37,7 @@ type orderService struct{
 
 
 func NewService ( r Repository) Service{
-	return &orderService(r)
+	return &orderService{r}
 }
 
 
