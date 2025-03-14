@@ -1,10 +1,11 @@
 package orders
 
 import (
-	"Goservices/orders/pb"
+	pb "Goservices/orders/pb"
 	"context"
 	"log"
 	"time"
+
 	"google.golang.org/grpc"
 )
 
@@ -56,7 +57,7 @@ func (c *Client) PostOrder(ctx context.Context, accountId string, products []Ord
 		TotalPrice: newOrder.TotalPrice,
 		AccountID:  newOrder.AccountId,
 		Products:   products,
-	},nil
+	}, nil
 
 }
 

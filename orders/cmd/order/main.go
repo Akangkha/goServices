@@ -4,15 +4,14 @@ import (
 	"Goservices/orders"
 	"log"
 	"time"
-
 	"github.com/kelseyhightower/envconfig"
 	"github.com/tinrab/retry"
 )
 
 type Config struct {
-	DatabaseURL string `envconfig:DATABASE_URL`
-	AccountURL  string `envconfig:ACCOUNT_SERVICE	_URL`
-	CatalogURL  string `envconfig:CATALOG_SERVICE_URL`
+	DatabaseURL string `envconfig:"DATABASE_URL"`
+	AccountURL  string `envconfig:"ACCOUNT_SERVICE_URL"`
+	CatalogURL  string `envconfig:"CATALOG_SERVICE_URL"`
 }
 
 func main() {
@@ -22,7 +21,7 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-
+    log.Println(cfg.DatabaseURL,cfg.AccountURL,cfg.CatalogURL)
 	var r orders.Repository
 	retry.ForeverSleep(2*time.Second, func(_ int) (err error){
 		r,err=orders.NewPostgresRepository(cfg.DatabaseURL)

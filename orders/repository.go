@@ -27,7 +27,6 @@ func NewPostgresRepository(url string) (Repository, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &postgresRepository{db}, nil
 }
 
