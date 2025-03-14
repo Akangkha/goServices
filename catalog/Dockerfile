@@ -1,14 +1,33 @@
-FROM golang:1.13-alpine3.11 AS build
+# Use a modern Go version
+FROM golang:1.24-alpine AS build
+
+# Install necessary dependencies
 RUN apk --no-cache add gcc g++ make ca-certificates
-WORKDIR /go/src/Goservices
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy dependency files first (for better caching)
 COPY go.mod go.sum ./
-COPY vendor vendor
-COPY catalog catalog
-RUN GO111MODULE=on go build -mod vendor -o /go/bin/app ./catalog/cmd/catalog
 
+# Download dependencies before copying source files
+RUN go mod tidy && go mod vendor
 
+# Copy the entire project into the container
+COPY . .
+
+# Build the application
+RUN go build -mod=vendor -o /go/bin/app ./catalog/cmd/catalog
+
+# Create a minimal final image
 FROM alpine:3.11
 WORKDIR /usr/bin
+
+# Copy the built binary from the previous stage
 COPY --from=build /go/bin/app .
+
+# Expose application port
 EXPOSE 8000
-CMD ["app"]
+
+# Start the application
+CMD ["./app"]
