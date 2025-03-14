@@ -15,16 +15,16 @@ type grpcServer struct {
 	service Service
 }
 
-func ListenGRPC(s Service, port string) error {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
+func ListenGRPC(s Service, port int) error {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		return err
 	}
 	server := grpc.NewServer()
 
 	pb.RegisterAccountServiceServer(server, &grpcServer{
-		service:                           s,
-		UnimplementedAccountServiceServer: pb.UnimplementedAccountServiceServer{}})
+		service: s,
+	})
 	reflection.Register(server)
 	return server.Serve(lis)
 }
