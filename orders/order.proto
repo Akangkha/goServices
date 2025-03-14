@@ -26,7 +26,7 @@ message PostOrderRequest{
         uint64 quantity=3;
     }
     string accountId=2;
-    repeated OrderProduct products=3;
+    repeated OrderProduct products=4;
 }
 
 message PostOrderResponse{
@@ -44,7 +44,6 @@ message GerOrderResponse{
 
 message GetOrdersForAccountRequest{
     string accountId=1;
-
 }
 
 
@@ -55,6 +54,6 @@ message GetOrdersForAccountResponse{
 
 
 service OrderService{
-    rpc PostOrder(PostOrderRequest) returns (PostOrderResponse);
+    rpc PostOrder(PostOrderRequest) returns (PostOrderResponse){};
     rpc GetOrdersForAccount(GetOrdersForAccountRequest) returns (GetOrdersForAccountResponse);
 }

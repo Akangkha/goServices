@@ -40,7 +40,7 @@ message GetAccountsResponse{
 }   
 
 service AccountService {
-    rpc PostAccout(PostAccountRequest) returns (PostAccountResponse){
+    rpc PostAccount(PostAccountRequest) returns (PostAccountResponse){
 
     }    
 

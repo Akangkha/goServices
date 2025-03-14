@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountService_PostAccout_FullMethodName  = "/pb.AccountService/PostAccout"
+	AccountService_PostAccount_FullMethodName  = "/pb.AccountService/PostAccount"
 	AccountService_GetAccount_FullMethodName  = "/pb.AccountService/GetAccount"
 	AccountService_GetAccounts_FullMethodName = "/pb.AccountService/GetAccounts"
 )
@@ -28,7 +28,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountServiceClient interface {
-	PostAccout(ctx context.Context, in *PostAccountRequest, opts ...grpc.CallOption) (*PostAccountResponse, error)
+	PostAccount(ctx context.Context, in *PostAccountRequest, opts ...grpc.CallOption) (*PostAccountResponse, error)
 	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
 	GetAccounts(ctx context.Context, in *GetAccountsRequest, opts ...grpc.CallOption) (*GetAccountsResponse, error)
 }
@@ -41,10 +41,10 @@ func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
 	return &accountServiceClient{cc}
 }
 
-func (c *accountServiceClient) PostAccout(ctx context.Context, in *PostAccountRequest, opts ...grpc.CallOption) (*PostAccountResponse, error) {
+func (c *accountServiceClient) PostAccount(ctx context.Context, in *PostAccountRequest, opts ...grpc.CallOption) (*PostAccountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PostAccountResponse)
-	err := c.cc.Invoke(ctx, AccountService_PostAccout_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, AccountService_PostAccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *accountServiceClient) GetAccounts(ctx context.Context, in *GetAccountsR
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility.
 type AccountServiceServer interface {
-	PostAccout(context.Context, *PostAccountRequest) (*PostAccountResponse, error)
+	PostAccount(context.Context, *PostAccountRequest) (*PostAccountResponse, error)
 	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
 	GetAccounts(context.Context, *GetAccountsRequest) (*GetAccountsResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
@@ -88,8 +88,8 @@ type AccountServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAccountServiceServer struct{}
 
-func (UnimplementedAccountServiceServer) PostAccout(context.Context, *PostAccountRequest) (*PostAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PostAccout not implemented")
+func (UnimplementedAccountServiceServer) PostAccount(context.Context, *PostAccountRequest) (*PostAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostAccount not implemented")
 }
 func (UnimplementedAccountServiceServer) GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
@@ -118,20 +118,20 @@ func RegisterAccountServiceServer(s grpc.ServiceRegistrar, srv AccountServiceSer
 	s.RegisterService(&AccountService_ServiceDesc, srv)
 }
 
-func _AccountService_PostAccout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AccountService_PostAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PostAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).PostAccout(ctx, in)
+		return srv.(AccountServiceServer).PostAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountService_PostAccout_FullMethodName,
+		FullMethod: AccountService_PostAccount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).PostAccout(ctx, req.(*PostAccountRequest))
+		return srv.(AccountServiceServer).PostAccount(ctx, req.(*PostAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -180,8 +180,8 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "PostAccout",
-			Handler:    _AccountService_PostAccout_Handler,
+			MethodName: "PostAccount",
+			Handler:    _AccountService_PostAccount_Handler,
 		},
 		{
 			MethodName: "GetAccount",

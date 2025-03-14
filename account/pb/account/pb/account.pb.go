@@ -417,10 +417,10 @@ var file_cmd_account_account_proto_depIdxs = []int32{
 	0, // 0: pb.PostAccountResponse.account:type_name -> pb.Account
 	0, // 1: pb.GetAccountResponse.account:type_name -> pb.Account
 	0, // 2: pb.GetAccountsResponse.accounts:type_name -> pb.Account
-	1, // 3: pb.AccountService.PostAccout:input_type -> pb.PostAccountRequest
+	1, // 3: pb.AccountService.PostAccount:input_type -> pb.PostAccountRequest
 	3, // 4: pb.AccountService.GetAccount:input_type -> pb.GetAccountRequest
 	5, // 5: pb.AccountService.GetAccounts:input_type -> pb.GetAccountsRequest
-	2, // 6: pb.AccountService.PostAccout:output_type -> pb.PostAccountResponse
+	2, // 6: pb.AccountService.PostAccount:output_type -> pb.PostAccountResponse
 	4, // 7: pb.AccountService.GetAccount:output_type -> pb.GetAccountResponse
 	6, // 8: pb.AccountService.GetAccounts:output_type -> pb.GetAccountsResponse
 	6, // [6:9] is the sub-list for method output_type

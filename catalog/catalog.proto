@@ -48,8 +48,8 @@ message GetProductsResponse{
 
 
 service CatalogService{
-    rpc PostProduct(PostProductRequest) returns (PostProductResponse);
-    rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+    rpc PostProduct(PostProductRequest) returns (PostProductResponse){};
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse){};
     rpc GetProducts(GetProductsRequest) returns (GetProductsResponse);
 }
 

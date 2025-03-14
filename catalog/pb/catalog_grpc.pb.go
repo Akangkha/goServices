@@ -4,7 +4,7 @@
 // - protoc             v6.30.0
 // source: catalog.proto
 
-package pb
+package __
 
 import (
 	context "context"
