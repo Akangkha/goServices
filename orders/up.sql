@@ -1,15 +1,13 @@
-Create table if not exists orders(
-    id char(27) primary key,   
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    account_id char(27) NOT NULL,
-    total_price MONEY NOT NULL
+CREATE TABLE IF NOT EXISTS orders (
+  id CHAR(27) PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  account_id CHAR(27) NOT NULL,
+  total_price MONEY NOT NULL
 );
 
-
-
-CREAT TABLE IF NOT EXISTS order_products(
-    order_id char(27) reference orders (id) on delete cascade,
-    product_id char(27)
-    quantity INT NOT NULL,
-    PRIMARY KEY ( product_id, order_id)
-)
+CREATE TABLE IF NOT EXISTS order_products (
+  order_id CHAR(27) REFERENCES orders (id) ON DELETE CASCADE,
+  product_id CHAR(27),
+  quantity INT NOT NULL,
+  PRIMARY KEY (product_id, order_id)
+);
