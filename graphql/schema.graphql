@@ -43,7 +43,8 @@ name:String!
 
 input ProductInput{
 name:String!
-descriptin:String!
+description:String!
+price: Float!
 }
 
 input OrderProductInput{
