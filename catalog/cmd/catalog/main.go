@@ -4,22 +4,22 @@ import (
 	"Goservices/catalog"
 	"log"
 	"time"
+
 	"github.com/kelseyhightower/envconfig"
 	"github.com/tinrab/retry"
 )
 
-
-
-type Config struct{
-	 DatabaseURL string `envconfig:"DATABASE_URL"`
+type Config struct {
+	DatabaseURL string `envconfig:"DATABASE_URL"`
 }
 
-func main(){
+func main() {
 	var cf Config
-	err:=envconfig.Process("", &cf)
-    if err!=nil{
+	err := envconfig.Process("", &cf)
+	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println("Database URL: ", cf.DatabaseURL)
 
 	var r catalog.Repository
 	retry.ForeverSleep(2*time.Second, func(_ int) (err error) {
@@ -33,5 +33,7 @@ func main(){
 
 	log.Println("Listening on port 8080...")
 	s := catalog.NewService(r)
+
+	log.Println("Service created in main.go ", s)
 	log.Fatal(catalog.ListenGRPC(s, "8000"))
 }

@@ -1,8 +1,10 @@
 package catalog
 
 import (
-	"Goservices/catalog/pb"
+	pb "Goservices/catalog/pb"
 	"context"
+	"log"
+
 	"google.golang.org/grpc"
 )
 
@@ -18,6 +20,7 @@ func NewClient(url string) (*Client, error) {
 	}
 
 	c := pb.NewCatalogServiceClient(conn)
+	log.Println("Connected to catalog service : client file")
 	return &Client{conn: conn, service: c}, nil
 }
 
@@ -34,6 +37,8 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 	if err != nil {
 		return nil, err
 	}
+
+	log.Println("Product created : client file : ", r.Product.Id)
 	return &Product{
 		ID:          r.Product.Id,
 		Name:        r.Product.Name,

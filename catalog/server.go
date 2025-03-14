@@ -1,7 +1,7 @@
 package catalog
 
 import (
-	"Goservices/catalog/pb"
+	pb "Goservices/catalog/pb"
 	"context"
 	"fmt"
 	"log"
@@ -24,9 +24,11 @@ func ListenGRPC(s Service, port string) error {
 	server := grpc.NewServer()
 
 	pb.RegisterCatalogServiceServer(server, &grpcServer{
-		service:                           s,
-		UnimplementedCatalogServiceServer: pb.UnimplementedCatalogServiceServer{}})
+		service: s,
+	})
 	reflection.Register(server)
+	log.Println("Listening on port " + port)
+	log.Println(lis)
 	return server.Serve(lis)
 }
 
@@ -36,6 +38,9 @@ func (s *grpcServer) PostProduct(ctx context.Context, r *pb.PostProductRequest) 
 		log.Println(err)
 		return nil, err
 	}
+
+
+	log.Println("Product created", p.ID)
 	return &pb.PostProductResponse{
 		Product: &pb.Product{
 			Id:          p.ID,

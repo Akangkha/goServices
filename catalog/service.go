@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"context"
+	"log"
 
 	"github.com/segmentio/ksuid"
 )
@@ -44,7 +45,7 @@ func (s *catalogService) PostProduct(ctx context.Context, name, description stri
 	if err := s.repository.PutProduct(ctx, p); err != nil {
 		return nil, err
 	}
-
+    log.Println("Product created : service file : ", p.ID)
 	return p, nil
 }
 

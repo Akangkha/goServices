@@ -33,9 +33,11 @@ type productDocument struct {
 }
 
 func NewElasticRepository(url string) (Repository, error) {
+	log.Println("Connecting to ElasticSearch", url)
 	client, err := elastic.NewClient(elastic.SetURL(url),
 		elastic.SetSniff(false))
 	if err != nil {
+		log.Println("Error connecting to ElasticSearch:", err)
 		return nil, err
 	}
 
@@ -47,11 +49,13 @@ func (r *elasticRepository) Close() {
 }
 
 func (r *elasticRepository) PutProduct(ctx context.Context, p *Product) error {
+	log.Println("Indexing product", p.ID)
 	_, err := r.client.Index().Index("catalog").Type("product").Id(p.ID).BodyJson(productDocument{
 		Name:        p.Name,
 		Description: p.Description,
 		Price:       p.Price,
 	}).Do(ctx)
+	log.Println("Indexed product", p.ID)
 	return err
 }
 
@@ -75,6 +79,7 @@ func (r *elasticRepository) GetProductByID(ctx context.Context, id string) (*Pro
 		ID:     id,
 		Name:        p.Name,
 		Description: p.Description,
+		Price: 	 p.Price,
 	}, err
 
 }
